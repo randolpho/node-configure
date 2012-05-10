@@ -1,0 +1,31 @@
+{
+    "name" : "configure",
+    "main" : "./node-configure.js",
+    "description" : "A simple multiple-configuration management module.",
+    "version" : "0.0.1",
+    "author" : "Randolpho St. John",
+    "bugs" : "https://github.com/randolpho/node-configure/issues",
+    "repository" : {
+        "type" : "git",
+        "url" : "https://github.com/randolpho/node-configure.git"
+    },
+    "config" : {
+        "notFound" : "throw",
+        "defaultConfigFile" : "config.json",
+        "commandLineSwitchName" : "config"
+    },
+    "dependencies" : {
+        "optimist" : ">=0.3.4"
+    },
+    "directories" : {
+        "lib" : "."
+    },
+    "keywords" : ["config", "configure", "configuration", "options", "settings"],
+    "engine" : {
+        "node" : ">=0.6.11"
+    },
+    "scripts" : {
+        "install": "node start.js",
+        "start" : "node start.js"
+    }
+}

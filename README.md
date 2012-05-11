@@ -20,7 +20,7 @@ forcing the main app file to load and pass around configuration setting objects.
 module that requires the _node-configure_ module will receive the same configuration object, which is the parsed
 result of the JSON configuration file.
 
-With _node-configure_, it is the responsibility of modules that wish to obtain configuration information to know
+With _node-configure_, it is the responsibility of modules that wish to obtain configuration settings to know
 their appropriate configuration fields and to provide defaults as necessary.
 
 ## Example
@@ -50,7 +50,7 @@ if(config.serverPort) {
 server.listen(port, requestHandler);
 ```
 
-The 'database.js file:
+The `database.js` file:
 
 ```javascript
 var config = require("configure");
@@ -78,8 +78,9 @@ At present _node-configure_ only supports JSON configuration files.
 
 #Default Behavior
 
-_node-configure_ will attempt to load the file specified by the `--config` switch relative to the current working
-directory as obtained via `process.cwd()`. If _node-configure_ fails to find or load the file, it will throw an exception.
+The first time the _node-configure_ module is required by an application, it will attempt to load the file specified
+by the `--config` switch relative to the current working directory as obtained via `process.cwd()`. If
+_node-configure_ fails to find or load the file, it will throw an exception.
 
 If the `--config` switch is not included as a command line parameter, _node-configure_ will attempt to load the file
 "config.json" in the current working directory. If that file is not found, _node-configure_ will throw an exception.
@@ -105,5 +106,5 @@ to return null when it fails to load a configuration file.
 * **defaultConfigFile**: specifies the file _node-configure_ should attempt to load if no file is specified via
 command line.
 * **commandLineSwitchName**: specifies the command line switch _node-configure_ should look for to determine which
-configuration file to load. Change this value if you or some other module already use --config
+configuration file to load. Change this value if you or some other module already use `--config`
 

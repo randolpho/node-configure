@@ -4,7 +4,7 @@
 var notFound = process.env.npm_package_config_notFound;
 
 var throwOnError = false;
-if(notFound === "throw"){
+if(notFound === "throw") {
     throwOnError = true;
 }
 
@@ -26,7 +26,9 @@ var config = {
 
 var fs = require("fs");
 fs.writeFile(__dirname + "/package.config.json", JSON.stringify(config),
-    function(err){
-        if(err) console.log("Error writing updated package configuration file. Check write permissions.");
+    function(err) {
+        if(err) {
+            console.log("Error writing updated package configuration file. Check write permissions.");
+        }
     });
 

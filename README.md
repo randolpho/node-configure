@@ -107,3 +107,11 @@ command line.
 * **commandLineSwitchName**: specifies the command line switch _node-configure_ should look for to determine which
 configuration file to load. Change this value if you or some other module already use `--config`
 
+#Unit Tests
+_node-configure_ features a suite of integration tests that can be run using npm's test script feature:
+
+    npm test configure
+
+Because the test script exercises _node-configure_'s ability to use npm package configuration settings, 
+it is important to note that any previously existing configuration settings will be removed as the test
+executes. After test completion, the default package configuration will be set. 

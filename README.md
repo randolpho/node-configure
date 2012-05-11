@@ -1,5 +1,4 @@
-node-configure
-==============
+# _node-configure_
 
 There are several configuration modules available for node.js. Each have their strengths and weaknesses, but
 no one project can be considered the optimal configuration option for all use cases. Some applications have
@@ -7,7 +6,7 @@ need of complex configuration that can be fetched from a central server. Others 
 loaded when the app starts.
 
 _node-configure_ seeks to solve the problem of a single application that is being developed by a group of
-developers who need the option of having a different global configuration for each developer and deployment environment,
+developers who need the ability to have a different application configuration for each developer and deployment environment,
 but do not wish to utilize a complex configuration module.
 
 Using _node-configure_, each developer can have a separate configuration file checked in to source control without

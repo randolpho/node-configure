@@ -1,10 +1,26 @@
 // Prevents us from using variables before declaring them.
 "use strict";
 
+var packageConfig = require(__dirname + "/package.config.json");
+var fileName = packageConfig.defaultConfigFile;
+var args = require("optimist").argv;
+var fs = require("fs");
+
+if (args[packageConfig.commandLineSwitchName]) {
+    fileName = args[packageConfig.commandLineSwitchName];
+}
 var rootDir = process.cwd();
 
-var packageConfig = require(__dirname + "/package.config.json");
+var configData = "";
+var path = rootDir + "/" + fileName;
 
-console.log("throw: " + packageConfig.throwOnError);
-console.log("file:  " + packageConfig.defaultConfigFile);
-console.log("cli:   " + packageConfig.commandLineSwitchName);
+try {
+    configData = fs.readFileSync(path, "utf-8");
+    module.exports = JSON.parse(configData);
+}
+catch (e) {
+    if (packageConfig.throwOnError) {
+        throw 'Unable to read or parse file "' + path + '". Error message: "' + e + '"';
+    }
+    module.exports = null;
+}

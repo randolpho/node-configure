@@ -22,6 +22,10 @@ result of the JSON configuration file.
 With _node-configure_, it is the responsibility of modules that wish to obtain configuration settings to know
 their appropriate configuration fields and to provide defaults as necessary.
 
+## Installation
+
+    npm install configure
+
 ## Example
 The following is an example of how one might use the _node-configure_ module.
 
@@ -41,10 +45,7 @@ The `main.js` file:
 
 ```javascript
 var config = require("configure");
-var port = 2000; // default port
-if(config.serverPort) {
-    port = config.serverPort;
-}
+var port = config.serverPort || 2000; // default port 2000
 // elsewhere...
 server.listen(port, requestHandler);
 ```

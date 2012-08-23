@@ -1,3 +1,4 @@
+[![build status](https://secure.travis-ci.org/randolpho/node-configure.png)](http://travis-ci.org/randolpho/node-configure)
 # _node-configure_
 
 There are several configuration modules available for node.js. Each have their strengths and weaknesses, but

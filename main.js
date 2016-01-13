@@ -16,7 +16,11 @@ var configData = "";
 var filePath = path.normalize(rootDir) + "/" + fileName;
 
 try {
-    configData = fs.readFileSync(filePath, "utf-8");
+    if(fileName == "-") {
+        configData = fs.readFileSync('/dev/stdin');
+    } else {
+        configData = fs.readFileSync(filePath, "utf-8");
+    }
     module.exports = JSON.parse(configData);
 }
 catch(e) {

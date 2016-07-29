@@ -2,8 +2,8 @@
 
 There are several configuration modules available for node.js. Each have their strengths and weaknesses, but
 no one project can be considered the optimal configuration option for all use cases. Some applications have
-need of complex configuration that can be fetched from a central server. Others just want a simple JSON object
-loaded when the app starts.
+need of complex configuration that can be fetched from a central server. Others just want a simple JSON
+object or a simple JavaScript file loaded when the app starts.
 
 _node-configure_ seeks to solve the problem of a single application that is being developed by a group of
 developers who need the ability to have a different application configuration for each developer and deployment environment,
@@ -14,13 +14,17 @@ being forced to worry about overwrites from another developer.
 
 #Overview
 
-_node-configure_ is designed to provide a global config that can be obtained from any node application file without
+_node-configure_ is designed to provide a global configuration that can be obtained from any node application file without
 forcing the main app file to load and pass around configuration setting objects. With _node-configure_, any file or
 module that requires the _node-configure_ module will receive the same configuration object, which is the parsed
-result of the JSON configuration file.
+result of the configuration file.
 
 With _node-configure_, it is the responsibility of modules that wish to obtain configuration settings to know
 their appropriate configuration fields and to provide defaults as necessary.
+
+As _node-configure_ used the `require(..)` mechanism for loading the configuration file, it can either be a simple
+JSON file or a JavaScript file. Notice that JavaScript files have to export a simple JS object in the same object
+as it would be stored in JSON files.
 
 ## Installation
 
@@ -76,6 +80,25 @@ The node start script:
 
 At present _node-configure_ only supports JSON configuration files.
 
+## Importing other Files
+
+It is possible to import other configuration files using _node-configure_. This is done by introducing a property
+called `$import` in the configuration file that accepts an array of paths to other configuration files or a single file path.
+
+This configuration file (JSON format):
+
+```json
+{
+    "$import" : ["/etc/db/config.json", "{root}/config/eureka.json"]
+}
+```
+
+will import the files `/etc/db/config.json` and `{root}/config/eureka.json` where `{root}` is replaced by the
+directory of the root configuration file and all paths are treated as absolute paths. Notice that the imported
+files have a higher priority and may overwrite properties of the root file. Also notice that the imported files
+can also import other files so you have to take care of not building dependency cycles.
+
+
 #Default Behavior
 
 The first time the _node-configure_ module is required by an application, it will attempt to load the file specified
@@ -83,7 +106,8 @@ by the `--config` switch relative to the current working directory as obtained v
 _node-configure_ fails to find or load the file, it will throw an exception.
 
 If the `--config` switch is not included as a command line parameter, _node-configure_ will attempt to load the file
-"config.json" in the current working directory. If that file is not found, _node-configure_ will throw an exception.
+"config.js" or "config.json" in the current working directory. If that file is not found, _node-configure_ will
+throw an exception.
 
 #Changing Default Behavior
 
@@ -107,6 +131,7 @@ to return null when it fails to load a configuration file.
 command line.
 * **commandLineSwitchName**: specifies the command line switch _node-configure_ should look for to determine which
 configuration file to load. Change this value if you or some other module already use `--config`
+* **importProperty**: specified the property in the configuration file that is used to import other configuration files
 
 #Unit Tests
 _node-configure_ features a suite of integration tests that can be run using npm's test script feature:
@@ -115,4 +140,4 @@ _node-configure_ features a suite of integration tests that can be run using npm
 
 Because the test script exercises _node-configure_'s ability to use npm package configuration settings, 
 it is important to note that any previously existing configuration settings will be removed as the test
-executes. After test completion, the default package configuration will be set. 
+executes. After test completion, the default package configuration will be set.

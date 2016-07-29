@@ -8,7 +8,7 @@ if(notFound === "throw") {
     throwOnError = true;
 }
 
-var defaultConfigFile = "config.json";
+var defaultConfigFile = "config";
 if(process.env.npm_package_config_defaultConfigFile) {
     defaultConfigFile = process.env.npm_package_config_defaultConfigFile;
 }
@@ -18,10 +18,16 @@ if(process.env.npm_package_config_commandLineSwitchName) {
     cliSwitch = process.env.npm_package_config_commandLineSwitchName;
 }
 
+var importProperty = "config";
+if(process.env.npm_package_config_importProperty) {
+    importProperty = process.env.npm_package_config_importProperty;
+}
+
 var config = {
     "throwOnError" : throwOnError,
     "defaultConfigFile" : defaultConfigFile,
-    "commandLineSwitchName" : cliSwitch
+    "commandLineSwitchName" : cliSwitch,
+    "importProperty" : importProperty
 };
 
 var fs = require("fs");

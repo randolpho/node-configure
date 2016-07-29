@@ -11,10 +11,12 @@
     },
     "config" : {
         "notFound" : "throw",
-        "defaultConfigFile" : "config.json",
-        "commandLineSwitchName" : "config"
+        "defaultConfigFile" : "config",
+        "commandLineSwitchName" : "config",
+        "importProperty" : "$import"
     },
     "dependencies" : {
+        "extend" : "^3.0.0",
         "optimist" : ">=0.3.4"
     },
     "directories" : {

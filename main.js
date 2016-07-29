@@ -34,7 +34,13 @@ var _readFile = function(filePath) {
         var imports = (result[importProperty] instanceof Array ? result[importProperty] : [result[importProperty]]);
         delete result[importProperty];
         for(var i = 0; i < imports.length; i++) {
-            var importConfig = _readFile(path.join(dirPath, imports[i]));
+            var import = imports[i];
+            if (typeof import !== 'string') {
+                console.warn('Unsupported import type: "' + (typeof import) + '"! Must be: "string".');
+                continue;
+            }
+
+            var importConfig = _readFile(import.replace("{root}", dirPath));
             if (!importConfig) {
                 // An error occurred whilst parsing the imported configuration. If
                 // throwOnError was set to true, an error was thrown. Otherwise, _readFile

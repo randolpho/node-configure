@@ -76,6 +76,21 @@ The node start script:
 
 At present _node-configure_ only supports JSON configuration files.
 
+## Importing other Files
+
+It is possible to import other configuration files using _node-configure_. This is done by introducing a property called `$import` in the JSON configuration file that accepts an array of paths to other configuration files or a single file path.
+
+This configuration file:
+
+```json
+{
+    "$import" : ["/etc/db/config.json", "{root}/config/eureka.json"]
+}
+```
+
+will import the files `/etc/db/config.json` and `{root}/config/eureka.json` where `{root}` is replaced by the directory of the root configuration file and all paths are treated as absolute paths. Notice that the imported files have a higher priority and may overwrite properties of the root file. Also notice that the imported files can also import other files so you have to take care of not building dependency cycles.
+
+
 #Default Behavior
 
 The first time the _node-configure_ module is required by an application, it will attempt to load the file specified
@@ -107,6 +122,7 @@ to return null when it fails to load a configuration file.
 command line.
 * **commandLineSwitchName**: specifies the command line switch _node-configure_ should look for to determine which
 configuration file to load. Change this value if you or some other module already use `--config`
+* **importProperty**: specified the property in the configuration JSON file that is used to import other configuration files
 
 #Unit Tests
 _node-configure_ features a suite of integration tests that can be run using npm's test script feature:

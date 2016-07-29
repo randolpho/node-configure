@@ -12,7 +12,8 @@
     "config" : {
         "notFound" : "throw",
         "defaultConfigFile" : "config.json",
-        "commandLineSwitchName" : "config"
+        "commandLineSwitchName" : "config",
+        "importProperty" : "$import"
     },
     "dependencies" : {
         "optimist" : ">=0.3.4"

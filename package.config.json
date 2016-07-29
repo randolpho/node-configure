@@ -1,6 +1,6 @@
 {
     "throwOnError" : "true",
-    "defaultConfigFile" : "config.json",
+    "defaultConfigFile" : "config",
     "commandLineSwitchName" : "config",
     "importProperty" : "$import"
 }

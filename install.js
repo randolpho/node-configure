@@ -8,7 +8,7 @@ if(notFound === "throw") {
     throwOnError = true;
 }
 
-var defaultConfigFile = "config.json";
+var defaultConfigFile = "config";
 if(process.env.npm_package_config_defaultConfigFile) {
     defaultConfigFile = process.env.npm_package_config_defaultConfigFile;
 }

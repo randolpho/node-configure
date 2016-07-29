@@ -19,7 +19,7 @@ var _readFile = function(filePath) {
 
     var config;
     try {
-        config = JSON.parse(fs.readFileSync(filePath, "utf-8"));
+        config = require(filePath);
     } catch (e) {
         var msg = 'Unable to read or parse file "' + path + '". Exception caught: ' + e;
         if(packageConfig.throwOnError) {

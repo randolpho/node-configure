@@ -11,7 +11,7 @@
     },
     "config" : {
         "notFound" : "throw",
-        "defaultConfigFile" : "config.json",
+        "defaultConfigFile" : "config",
         "commandLineSwitchName" : "config",
         "importProperty" : "$import"
     },

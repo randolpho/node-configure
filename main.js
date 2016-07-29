@@ -19,7 +19,7 @@ var _readFile = function(filePath) {
 
     var config;
     try {
-        config = fs.readFileSync(filePath, "utf-8");
+        config = JSON.parse(fs.readFileSync(filePath, "utf-8"));
     } catch (e) {
         var msg = 'Unable to read or parse file "' + path + '". Exception caught: ' + e;
         if(packageConfig.throwOnError) {
@@ -28,19 +28,20 @@ var _readFile = function(filePath) {
         console.error(msg);
         return null;
     }
-    extend(true, result, config);
+    result = extend(true, {}, result, config);
 
     if(result[importProperty]) {
         var imports = (result[importProperty] instanceof Array ? result[importProperty] : [result[importProperty]]);
         delete result[importProperty];
+
         for(var i = 0; i < imports.length; i++) {
-            var import = imports[i];
-            if (typeof import !== 'string') {
-                console.warn('Unsupported import type: "' + (typeof import) + '"! Must be: "string".');
+            var importStr = imports[i];
+            if (typeof importStr !== 'string') {
+                console.warn('Unsupported import type: "' + (typeof importStr) + '"! Must be: "string".');
                 continue;
             }
 
-            var importConfig = _readFile(import.replace("{root}", dirPath));
+            var importConfig = _readFile(importStr.replace("{root}", dirPath));
             if (!importConfig) {
                 // An error occurred whilst parsing the imported configuration. If
                 // throwOnError was set to true, an error was thrown. Otherwise, _readFile
@@ -48,7 +49,7 @@ var _readFile = function(filePath) {
 
                 return null;
             }
-            extend(true, result, importConfig);
+            result = extend(true, {}, result, importConfig);
         }
     }
 
